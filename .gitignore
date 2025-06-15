@@ -1,0 +1,179 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# uv
+.venv/
+uv.lock
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# pyenv
+.python-version
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Model files and caches
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+models/
+model_cache/
+.cache/
+huggingface/
+.huggingface/
+
+# Results and outputs
+icm_results/
+icm_results.json
+test_results.json
+*.log
+*.csv
+results/
+outputs/
+experiments/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+tmp/
+temp/
+
+# Data files (add specific patterns as needed)
+data/
+datasets/
+*.jsonl
+*.tsv
+*.parquet
+
+# Large files
+*.tar.gz
+*.zip
+*.7z
+*.rar
+
+# CUDA
+*.cuda
+*.cudnn
+
+# Wandb
+wandb/
+.wandb/
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Secrets and credentials
+.env
+.env.local
+.env.*.local
+secrets/
+credentials/
+*.key
+*.pem
+config.json
+config.yaml
+
+# IDE and editor specific
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+.classpath
+
+# Documentation build
+docs/_build/
+docs/.doctrees/
+site/
+
+# Coverage reports
+coverage.xml
+*.cover
+.coverage.*
+
+# Profiling
+*.prof
+*.lprof
+
+# Debugging
+.pdb_history
+
+# Package management
+poetry.lock
+Pipfile.lock
+
+# Custom ignore patterns for ICM
+checkpoint*/
+*.checkpoint
+debug/
+profile/

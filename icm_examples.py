@@ -154,7 +154,8 @@ class ICMExperiment:
                 "alpha": config.alpha,
                 "initial_temperature": config.initial_temperature,
                 "final_temperature": config.final_temperature,
-                "cooling_rate": config.cooling_rate
+                "cooling_rate": config.cooling_rate,
+                "label_names": config.label_names
             },
             "results": {
                 "final_score": float(final_score),

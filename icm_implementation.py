@@ -153,12 +153,19 @@ class TransformersBackend(ModelBackend):
         )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         
-        self.model = AutoModelForCausalLM.from_pretrained(
-            config.model_name,
-            torch_dtype="auto",
-            device_map="auto" if config.device == "cuda" else None,
-            trust_remote_code=True
-        )
+        if config.device == "cuda":
+            self.model = AutoModelForCausalLM.from_pretrained(
+                config.model_name,
+                torch_dtype="auto",
+                device_map="auto",
+                trust_remote_code=True
+            )
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                config.model_name,
+                torch_dtype="auto",
+                trust_remote_code=True
+            )
         
         if config.device == "cpu":
             self.model = self.model.to(config.device)

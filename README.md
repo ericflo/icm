@@ -22,21 +22,41 @@ ICM is an unsupervised algorithm that fine-tunes pretrained language models on t
 
 ### Requirements
 
-- Python 3.8+
+- Python 3.9+
 - PyTorch 2.0+
 - CUDA-capable GPU (recommended)
+- uv (for package management)
+
+### Installing uv
+
+First, install uv if you haven't already:
+
+```bash
+# On macOS and Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# On Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# Or with pip
+pip install uv
+```
 
 ### Basic Installation
 
 ```bash
-# Install core dependencies
-pip install torch transformers tqdm numpy pandas
+# Create and activate a virtual environment
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install the package in editable mode with core dependencies
+uv pip install -e .
 
 # For vLLM backend (recommended for performance)
-pip install vllm
+uv pip install -e ".[vllm]"
 
-# For the default Qwen3 models
-pip install transformers>=4.51.0
+# For all dependencies including development tools
+uv pip install -e ".[all]"
 ```
 
 ### Docker Installation (Recommended)
@@ -54,6 +74,9 @@ RUN pip install --upgrade pip && \
 ### 1. Basic Usage
 
 ```python
+# No need to activate venv when using uv run!
+# Save this as quick_test.py and run with: uv run quick_test.py
+
 from icm_implementation import ICM, ICMConfig, create_truthfulness_dataset
 
 # Create dataset
@@ -88,16 +111,16 @@ for data_point, label in labeled_data:
 
 ```bash
 # Run all tasks with default model
-python icm_examples.py --task all
+uv run icm_examples.py --task all
 
 # Run specific task with custom model
-python icm_examples.py --task math --model meta-llama/Llama-3.2-1B
+uv run icm_examples.py --task math --model meta-llama/Llama-3.2-1B
 
 # Quick test with small dataset
-python icm_examples.py --task truthfulness --small
+uv run icm_examples.py --task truthfulness --small
 
 # Compare backends
-python icm_examples.py --compare-backends
+uv run icm_examples.py --compare-backends
 ```
 
 ### 3. Custom Tasks
@@ -215,13 +238,16 @@ dataset = create_comparison_dataset([
 
 ```bash
 # Run all tests
-python icm_test_suite.py
+uv run icm_test_suite.py
 
 # Run specific test class
-python -m unittest icm_test_suite.TestLogicalConsistency
+uv run python -m unittest icm_test_suite.TestLogicalConsistency
 
 # Run with verbose output
-python icm_test_suite.py -v
+uv run icm_test_suite.py -v
+
+# Or use pytest if you have dev dependencies installed
+uv run pytest icm_test_suite.py -v
 ```
 
 ## Experiment Tracking
@@ -263,7 +289,7 @@ If you use this implementation, please cite the original paper:
 2. **vLLM Import Error**
    ```bash
    # Install with specific CUDA version
-   pip install vllm --index-url https://download.pytorch.org/whl/cu121
+   uv pip install vllm --index-url https://download.pytorch.org/whl/cu121
    ```
 
 3. **Slow Performance**

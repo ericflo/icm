@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "icm"
+version = "0.1.0"
+description = "Internal Coherence Maximization (ICM) - Unsupervised Elicitation of Language Models"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    {name = "ICM Contributors", email = "icm@example.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["machine learning", "language models", "unsupervised learning", "elicitation"]
+
+dependencies = [
+    "torch>=2.0.0",
+    "transformers>=4.51.0",
+    "accelerate",
+    "numpy",
+    "pandas",
+    "tqdm",
+    "psutil",
+]
+
+[project.optional-dependencies]
+vllm = [
+    "vllm>=0.7.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+]
+all = [
+    "icm[vllm,dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/example/icm"
+Documentation = "https://github.com/example/icm#readme"
+"Bug Tracker" = "https://github.com/example/icm/issues"
+
+[tool.setuptools]
+py-modules = ["icm_implementation", "icm_examples", "icm_test_suite"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+line_length = 100
