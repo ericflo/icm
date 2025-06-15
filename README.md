@@ -17,6 +17,8 @@ ICM is an unsupervised algorithm that fine-tunes pretrained language models on t
 - 📊 **Built-in Tasks**: Support for truthfulness, math correctness, and comparison tasks
 - 🧪 **Comprehensive Testing**: Unit tests and integration tests included
 - 📈 **Performance Tracking**: Detailed metrics and experiment logging
+- 🌍 **Real Data Support**: Run experiments on actual datasets (TruthfulQA, GSM8K, HH-RLHF)
+- 🤖 **Unsupervised Learning**: No labels needed - ICM discovers patterns automatically
 
 ## Installation
 
@@ -250,12 +252,92 @@ uv run icm_test_suite.py -v
 uv run pytest icm_test_suite.py -v
 ```
 
+## Running Experiments on Real Data
+
+ICM includes a powerful experiment runner that works with real datasets from Hugging Face. You can evaluate ICM's unsupervised learning capabilities on actual benchmarks without any labeled data.
+
+### Available Tasks
+
+1. **Truthfulness (TruthfulQA)** - Evaluate factual accuracy of claims
+2. **Math Correctness (GSM8K)** - Verify mathematical problem solutions  
+3. **Comparison (HH-RLHF)** - Learn preferences between responses
+
+### Basic Usage
+
+```bash
+# Run on a single task
+uv run run_experiments.py --task truthfulness
+
+# Run on all tasks
+uv run run_experiments.py --task all
+
+# Customize model and sample size
+uv run run_experiments.py --task math --model Qwen/Qwen3-4B --sample-size 100
+
+# Control iterations
+uv run run_experiments.py --task comparison --max-iterations 200
+```
+
+### Example Commands
+
+```bash
+# Quick test with small model
+uv run run_experiments.py --task math --model Qwen/Qwen2.5-0.5B --sample-size 20
+
+# Full experiment with Qwen3-4B
+uv run run_experiments.py --task all --model Qwen/Qwen3-4B --sample-size 50
+
+# Large-scale truthfulness evaluation
+uv run run_experiments.py --task truthfulness --sample-size 200 --max-iterations 400
+```
+
+### How It Works
+
+The experiment runner:
+1. **Loads real data** from Hugging Face datasets (TruthfulQA, GSM8K, HH-RLHF)
+2. **Formats data** into question-claim pairs suitable for ICM
+3. **Runs ICM algorithm** to label data without supervision
+4. **Enforces consistency** using task-specific logical constraints
+5. **Saves detailed results** including metrics, labels, and score history
+
+### Output
+
+Results are saved to `icm_results/` with filenames like:
+```
+REAL_truthfulness_Qwen_Qwen3-4B_20250615_120000.json
+```
+
+Each result file contains:
+- Full configuration used
+- Final metrics (score, mutual predictability, inconsistencies)
+- All labeled examples with model's predictions
+- Score history for analysis
+- Runtime and acceptance rate statistics
+
+### Task-Specific Details
+
+**Truthfulness (TruthfulQA)**
+- Tests ability to distinguish true/false claims
+- Uses questions from TruthfulQA validation set
+- No specific consistency constraints
+
+**Math Correctness (GSM8K)**
+- Verifies correct vs incorrect math solutions
+- Enforces mathematical consistency: same problem can't have different correct answers
+- Creates deliberate wrong answers for contrastive learning
+
+**Comparison (HH-RLHF)**
+- Learns preferences between helpful/harmless responses
+- Uses Anthropic's HH-RLHF dataset
+- Enforces asymmetry: if A>B then B cannot be >A
+
 ## Experiment Tracking
 
 Results are automatically saved to `icm_results/` with:
 - Detailed JSON logs for each experiment
-- Summary CSV with key metrics
+- Summary CSV with key metrics  
 - Score history and acceptance rates
+- Full labeled datasets for analysis
 
 ## Limitations
 
