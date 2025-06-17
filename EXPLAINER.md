@@ -113,19 +113,19 @@ for item, category in organized_data:
 **For Fact-Checking:**
 ```bash
 # Organize claims by truthfulness
-python icm_examples.py --task truthfulness --model Qwen/Qwen3-4B
+uv run icm_examples.py --task truthfulness --model Qwen/Qwen3-4B
 ```
 
 **For Math Problem Verification:**
 ```bash
 # Check solution correctness
-python icm_examples.py --task math --model Qwen/Qwen3-4B
+uv run icm_examples.py --task math --model Qwen/Qwen3-4B
 ```
 
 **For Content Comparison:**
 ```bash
 # Compare different versions
-python icm_examples.py --task comparison --model Qwen/Qwen3-4B
+uv run icm_examples.py --task comparison --model Qwen/Qwen3-4B
 ```
 
 ## Understanding Your Results
@@ -140,12 +140,13 @@ After running ICM, you'll get:
 ## Performance and Efficiency
 
 ### Speed
-- Small datasets (< 100 items): 5-10 minutes
-- Medium datasets (100-1000 items): 30-60 minutes  
-- Large datasets (1000+ items): 1-3 hours
+*Performance varies significantly based on hardware (GPU memory, CPU cores) and model size:*
+- Small datasets (< 100 items): 5-10 minutes (typical with GPU)
+- Medium datasets (100-1000 items): 30-60 minutes (typical with GPU)
+- Large datasets (1000+ items): 1-3 hours (typical with GPU)
 
 ### Accuracy
-ICM typically achieves 85-95% accuracy compared to human reviewers, with the advantage of perfect consistency.
+ICM performance depends on the specific dataset and task complexity. Results are typically consistent and follow discovered patterns, though individual accuracy varies by use case.
 
 ### Cost
 Runs on your own hardware - no per-request charges or data privacy concerns.
@@ -178,7 +179,7 @@ config = ICMConfig(
 ### Batch Processing
 Process multiple datasets with consistent settings:
 ```bash
-python run_experiments.py --task all --sample-size 200
+uv run run_experiments.py --task all --sample-size 200
 ```
 
 ### Integration with Existing Workflows
